@@ -1,20 +1,26 @@
-const User = require('./User');
-const Post = require('./Post');
-const Comment = require('./Comment');
+const User = require("./user");
+const Location = require("./location");
+const Pickup = require("./pickup");
+const Rider = require("./rider");
+const Ride = require("./ride")
 
-Post.belongsTo(User, {
+Rider.belongsTo(User, {
   foreignKey: 'user_id',
   onDelete: 'CASCADE'
 });
 
-Comment.belongsTo(User, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE'
-  });
-  
-Post.hasMany(Comment, {
-  foreignKey: 'post_id',
-  onDelete: 'CASCADE'
+Rider.hasOne(Pickup, {
+  foreignKey: "pickup_id",
 });
 
-module.exports = { User, Post, Comment };
+Pickup.hasOne(Rider, {
+  foreignKey: "rider_id",
+});
+
+module.exports = {
+  User,
+  Location,
+  Pickup,
+  Rider,
+  Ride,
+};
